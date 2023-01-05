@@ -9,7 +9,9 @@ sudo apt install ros-noetic-turtlebot3
 ```
 
 exportar modelo do turtlebot:
+
 abrir .bashrc: `gedit ~/.bashrc`
+
 por esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
 
 clone and build turtlebot simulation repositories:
