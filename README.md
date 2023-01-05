@@ -49,11 +49,11 @@ TODO:
 	- mais avançada: pessoas e objetos com modelos neuronais já treinados
 
 ## Notas:
-condução com informação semantica -> apenas um menu interativo no rviz tipo "go to"->"kitchen/bedroom"
-detetar pessoas/objetos complexos -> procurar redes neuronais já treinadas para isso
-spawn de objectos deve ter posição randomized dentro da divisão especificada
-don't bother with advanced missions lol
-iniciar missões é feito com menu interativo rviz
-inventar missões novas para além das descritas
-construir mapa uma vez só com SLAM, guardar (ros map server)
+- condução com informação semantica -> apenas um menu interativo no rviz tipo "go to"->"kitchen/bedroom"
+- detetar pessoas/objetos complexos -> procurar redes neuronais já treinadas para isso
+- spawn de objectos deve ter posição randomized dentro da divisão especificada
+- don't bother with advanced missions
+- iniciar missões é feito com menu interativo rviz
+- inventar missões novas para além das descritas
+- construir mapa uma vez só com SLAM, guardar (ros map server)
 
