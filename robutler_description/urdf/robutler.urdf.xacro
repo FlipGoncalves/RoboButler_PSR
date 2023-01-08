@@ -186,10 +186,73 @@
     </inertial>
   </link>
 
+  <!-- Connect the head to the base -->
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.04"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="head_swivel" type="fixed">
+    <parent link="camera_to_base"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.5"/>
+  </joint>
+
+  <link name="box">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="tobox" type="fixed">
+    <parent link="head"/>
+    <child link="box"/>
+    <origin xyz="0.04 0 0"/> 
+  </joint>
+
+  <link name="box2">
+    <visual>
+      <geometry>
+        <box size="0.04 0.02 0.02"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="tobox2" type="fixed">
+    <parent link="head"/>
+    <child link="box2"/>
+    <origin xyz="0.06 0 0"/> 
+  </joint>
+
+  <!-- Connect Camera to the base -->
+  <link name="camera_to_base">
+    <visual>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="camera_to_base_joint" type="fixed">
+    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+    <origin xyz="0.033 0 0.5" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_to_base"/>
+  </joint>
+
   <joint name="camera_joint" type="fixed">
     <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
-    <origin xyz="0.073 -0.011 1" rpy="0 0 0"/>
-    <parent link="base_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <parent link="camera_to_base"/>
     <child link="camera_link"/>
   </joint>
 
