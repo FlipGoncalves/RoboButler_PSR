@@ -1,0 +1,14 @@
+<package>
+  <description brief="teleop">
+
+     teleop
+
+  </description>
+  <author>Filipe Goncalves</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/teleop</url>
+  <depend package="geometry_msgs"/>
+  <depend package="rospy"/>
+
+</package>
