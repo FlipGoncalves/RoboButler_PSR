@@ -6,3 +6,4 @@ thop
 requests
 tqdm
 pyyaml
+vision_msgs
