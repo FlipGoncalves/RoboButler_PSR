@@ -14,6 +14,12 @@
         <arg name="z_pos" value="$(arg z_pos)"/>
     </include>
 
+     <!-- Launch Yolo -->
+    <include file="$(find robutler_perception)/launch/yolo.launch">
+    </include>
+
+
+
     <!-- Launch robot state publisher to get tf from joint_state -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 

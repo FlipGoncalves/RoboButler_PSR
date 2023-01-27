@@ -245,7 +245,6 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: true
-<<<<<<< HEAD
     - Class: rviz/Image
       Enabled: true
       Image Topic: /yolov7/visualization
@@ -258,7 +257,6 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: true
-=======
     - Alpha: 1
       Arrow Length: 0.30000001192092896
       Axes Length: 0.30000001192092896
@@ -276,12 +274,11 @@ Visualization Manager:
       Topic: /particlecloud
       Unreliable: false
       Value: false
->>>>>>> 288e1650b8f132e1650054f82027d137161393f7
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
