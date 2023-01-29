@@ -15,7 +15,6 @@ def parse_classes_file(path):
     return classes
 
 def callback_2(data):
-    obj_id = None
     for detection in data.detections:
       
         # Get the id of each object
