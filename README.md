@@ -37,6 +37,10 @@ Num terminal: `roslaunch robutler_bringup gazebo.launch`
 Iniciar robo:
 Noutro terminal: `roslaunch robutler_bringup bringup.launch`
 
+Para a navigation:
+Noutro terminal: `roslaunch robutler_navigation localization.launch`
+(após esse correr) Noutro terminal: `roslaunch robutler_navigation move_base.launch`
+
 # Tasks
 
 TODO:
