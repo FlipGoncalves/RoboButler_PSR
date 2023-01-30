@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import rospy
+import rospkg
 from functools import partial
 from geometry_msgs.msg import Twist
 from visualization_msgs.msg import Marker
@@ -46,7 +47,9 @@ def callback_1(data, classes):
 
 def listener():
     rospy.init_node('listener', anonymous=True)
-    classes = parse_classes_file("/home/rafael/catkin_ws/src/RoboButler_PSR/robutler_perception/dataset/coco80.txt")
+    rospack = rospkg.RosPack()
+    path = rospack.get_path('robutler_perception')
+    classes = parse_classes_file(path + "/dataset/coco80.txt")
     sub_1 = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_1, classes=classes))
     rospy.spin()
 
