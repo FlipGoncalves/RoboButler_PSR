@@ -1,9 +1,9 @@
 <launch>
     <node pkg="robutler_perception" type="detector.py" name="detector" output="screen">
         <!-- Download the official weights from the original repo -->
-        <param name="weights_path" type="str" value="/home/rafael/catkin_ws/src/RoboButler_PSR/robutler_perception/dataset/yolo.pt"/>
+        <param name="weights_path" type="str" value="$(find robutler_perception)/dataset/yolo.pt"/>
         <!-- Path to a class_labels.txt file containing your desired class labels. The i-th entry corresponds to the i-th class id. For example, in coco class label 0 corresponds to 'person'. Files for the coco and berkeley deep drive datasets are provided in the 'class_labels/' directory. If you leave it empty then no class labels are visualized.-->
-        <param name="classes_path" type="str" value="/home/rafael/catkin_ws/src/RoboButler_PSR/robutler_perception/dataset/coco80.txt"/>
+        <param name="classes_path" type="str" value="$(find robutler_perception)/dataset/coco80.txt"/>
         <!-- topic name to subscribe to -->
         <param name="img_topic" type="str" value="camera/rgb/image_raw" />
         <!-- topic name for the detection output -->

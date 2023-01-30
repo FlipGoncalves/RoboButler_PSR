@@ -21,6 +21,20 @@ git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations
 cd ~/catkin_ws && catkin_make
 ```
 
+instalar dependências python:
+```bash
+cd robutler_perception
+pip install -r requirements.txt
+```
+
+clone and build esta dependência para a visão:
+```bash
+cd ~/catkin_ws/src/
+git clone https://github.com/ros-perception/vision_msgs.git
+cd ~/catkin_ws && catkin_make
+```
+
+
 download worlds:
 ```bash
 cd ~/catkin_ws/src
@@ -31,26 +45,34 @@ git clone https://github.com/aws-robotics/aws-robomaker-hospital-world
 # Run simulation
 Com os packages do repositório do projeto no catkin_ws/src:
 
-Iniciar mundo:
+## Iniciar mundo:
+
 Num terminal: `roslaunch robutler_bringup gazebo.launch`
 
-Iniciar robo:
+
+## Iniciar robo:
+
 Noutro terminal: `roslaunch robutler_bringup bringup.launch`
 
-Para a navigation:
+
+## Para a navigation:
+
 Noutro terminal: `roslaunch robutler_navigation localization.launch`
+
 (após esse correr) Noutro terminal: `roslaunch robutler_navigation move_base.launch`
+
+Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionem primeiro o 'map' como fixed frame nas global settings
 
 # Tasks
 
 TODO:
-- Ajustar configuração do robo (customizar cor/extra thingies como antena p.e.)
 - Criar teleop melhorado (movimento manual)
-- Mapeamento e navegação
-- Spawn de objectos (começar com objetos simples para avançar para perceção)
-- Perceção (requer spawn)
-	- simples: detetar objectos de cor solida
-	- mais avançada: pessoas e objetos com modelos neuronais já treinados
+- Refazer mapa? o atual tem algumas partes estranhas
+- Ajustar objetos iniciais, alguns estão fora do sítio
+- Continuar script de spawn de objetos
+- Menu interativo para navegação
+- Missões
+- Menu interativo para ativar missões
 
 ## Notas:
 - condução com informação semantica -> apenas um menu interativo no rviz tipo "go to"->"kitchen/bedroom"
