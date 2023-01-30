@@ -41,19 +41,22 @@ BURGER_MAX_ANG_VEL = 1.80
 LIN_VEL_STEP_SIZE = 0.05
 ANG_VEL_STEP_SIZE = 0.05
 
-LIN_VEL_HALF_STEP_SIZE = 0.0025
-ANG_VEL_HALF_STEP_SIZE = 0.0025
+LIN_VEL_HALF_STEP_SIZE = 0.025
+ANG_VEL_HALF_STEP_SIZE = 0.025
 
 msg = """
 ---------------------------
 Moving around:
-        w
-   a    s    d
-w/s : increase/decrease linear velocity
-a/d : increase/decrease angular velocity
-space key: force stop
-CTRL-C to quit
+w
+a    s    d
 ---------------------------
+w : increase linear velocity
+s : decrease linear velocity
+a : increase angular velocity
+d : decrease angular velocity
+---------------------------
+space key: force robot stop
+q: quit teleop
 """
 
 e = """
@@ -102,13 +105,14 @@ def checkAngularLimitVelocity(vel):
 
 def keyBinding(event):
     
-    global STATUS, TARGET_ANGULAR_VEL, TARGET_LINEAR_VEL, CONTROL_ANGULAR_VEL, CONTROL_LINEAR_VEL
+    global TARGET_ANGULAR_VEL, TARGET_LINEAR_VEL, CONTROL_ANGULAR_VEL, CONTROL_LINEAR_VEL
     
     strg = repr(event.char) if type(event) != str else event
     key = strg.replace("\'", "")
     
     # break
-    if (key == '\x03'):
+    if (key == 'q'):
+        print("Quitting...")
         twist = Twist()
         twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
         twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = 0.0
@@ -123,21 +127,17 @@ def keyBinding(event):
     # linear velocity
     if key == 'w':
         TARGET_LINEAR_VEL = checkLinearLimitVelocity(TARGET_LINEAR_VEL + LIN_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
     elif key == 's':
         TARGET_LINEAR_VEL = checkLinearLimitVelocity(TARGET_LINEAR_VEL - LIN_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
         
     # angular velocity
     elif key == 'a':
         TARGET_ANGULAR_VEL = checkAngularLimitVelocity(TARGET_ANGULAR_VEL + ANG_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
     elif key == 'd':
         TARGET_ANGULAR_VEL = checkAngularLimitVelocity(TARGET_ANGULAR_VEL - ANG_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
         
     # abrupt stop car
@@ -151,33 +151,27 @@ def keyBinding(event):
     # prioritize correct angular over linear velocity
     elif TARGET_ANGULAR_VEL < 0:
         TARGET_ANGULAR_VEL = checkAngularLimitVelocity(TARGET_ANGULAR_VEL + ANG_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
     elif TARGET_ANGULAR_VEL > 0:
         TARGET_ANGULAR_VEL = checkAngularLimitVelocity(TARGET_ANGULAR_VEL - ANG_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
     
     # correct linear velocity
     elif TARGET_LINEAR_VEL < 0:
         TARGET_LINEAR_VEL = checkLinearLimitVelocity(TARGET_LINEAR_VEL + LIN_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
     elif TARGET_LINEAR_VEL > 0:
         TARGET_LINEAR_VEL = checkLinearLimitVelocity(TARGET_LINEAR_VEL - LIN_VEL_STEP_SIZE)
-        STATUS = STATUS + 1
         # print(vels(TARGET_LINEAR_VEL,TARGET_ANGULAR_VEL))
-
-    # print command messages
-    # if STATUS == 20 :
-    #     print(msg)
-    #     STATUS = 0
         
-    TARGET_LINEAR_VEL = round(TARGET_LINEAR_VEL, 2)
-    TARGET_ANGULAR_VEL = round(TARGET_ANGULAR_VEL, 1)
+    TARGET_LINEAR_VEL = round(TARGET_LINEAR_VEL, 3)
+    TARGET_ANGULAR_VEL = round(TARGET_ANGULAR_VEL, 2)
 
     CONTROL_LINEAR_VEL = makeSimpleProfile(CONTROL_LINEAR_VEL, TARGET_LINEAR_VEL, LIN_VEL_HALF_STEP_SIZE)
     CONTROL_ANGULAR_VEL = makeSimpleProfile(CONTROL_ANGULAR_VEL, TARGET_ANGULAR_VEL, ANG_VEL_HALF_STEP_SIZE)
+    
+    CONTROL_LINEAR_VEL = round(CONTROL_LINEAR_VEL, 3)
+    CONTROL_ANGULAR_VEL = round(CONTROL_ANGULAR_VEL, 2)
     
     twist = Twist()
     twist.linear.x = CONTROL_LINEAR_VEL; twist.linear.y = 0.0; twist.linear.z = 0.0
@@ -193,7 +187,6 @@ pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 
 turtlebot3_model = rospy.get_param("model", "burger")
 
-STATUS = 0
 TARGET_LINEAR_VEL   = 0.0
 TARGET_ANGULAR_VEL  = 0.0
 CONTROL_LINEAR_VEL  = 0.0
@@ -201,6 +194,7 @@ CONTROL_ANGULAR_VEL = 0.0
 
 window = tk.Tk()
 window.title("Teleop")
+window.geometry("300x300")
 
 lbl1 = tk.Label(window, text=f"Linear Velocity: {TARGET_LINEAR_VEL}\n\t")    
 lbl2 = tk.Label(window, text=f"Angular Velocity: {TARGET_ANGULAR_VEL}\n\t")
@@ -219,7 +213,7 @@ def updateLabel():
     window.after(100, updateLabel)
     keyBinding("")
 
-window.after(1000, updateLabel)
+window.after(500, updateLabel)
 
 lbl1.pack()
 lbl2.pack()
