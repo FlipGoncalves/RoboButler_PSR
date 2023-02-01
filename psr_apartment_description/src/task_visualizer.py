@@ -26,11 +26,6 @@ def image_callback(data, rospack):
     bridge = CvBridge()
     
     # Convert the ROS image message to a OpenCV image
-    
-    # print(image)
-    # photo_path = rospack.get_path('psr_apartment_description')
-    #cap = cv2.VideoCapture('image')
-   
     image = bridge.imgmsg_to_cv2(data, "bgr8")
     cv2.imshow('image', image)
     
@@ -44,11 +39,9 @@ def image_callback(data, rospack):
             photo_num += 1
        
         cv2.imwrite(photo_path, image)
-        
-    
-    # cv2.destroyAllWindows()    
+         
 
-def callback_1(data, classes, classes_list, id_list):
+def callback_1(data, classes, id_list):
     marker = Marker()
     arg = rospy.get_param('~object', '0')
   
@@ -69,17 +62,9 @@ def callback_1(data, classes, classes_list, id_list):
         # Get the id of each object
         object = detection.results[0].id
         id_list.append(object)  
-        # print(id_list)   
-        if object is not None and classes[object] not in classes_list:
-            
-            classes_list.append(classes[object])
-            # print(classes_list)
-        
-        # elif object is not None and 
     
-    if arg in classes_list:
+    if classes.index(arg) in id_list:
         marker.text = 'Found ' + str(id_list.count(classes.index(arg))) + ' ' + arg + '!'
-        classes_list[:] = []
     else:
         marker.text = "Searching for " + arg
     
@@ -94,9 +79,8 @@ def listener():
     rospack = rospkg.RosPack()
     path = rospack.get_path('robutler_perception')
     classes = parse_classes_file(path + "/dataset/coco80.txt")
-    classes_list = []
     id_list = []
-    sub_1 = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_1, classes=classes, classes_list=classes_list, id_list=id_list))
+    sub_1 = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_1, classes=classes, id_list=id_list))
     image_sub = rospy.Subscriber('camera/rgb/image_raw', Image, partial(image_callback, rospack=rospack))
 
     rospy.on_shutdown(stop_publishing) # when node shutdown calls the stop_publishing function
