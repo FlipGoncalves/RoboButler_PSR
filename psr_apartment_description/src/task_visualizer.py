@@ -43,7 +43,7 @@ def image_callback(data, rospack):
 
 def callback_1(data, classes, id_list):
     marker = Marker()
-    arg = rospy.get_param('~object', '0')
+    arg = rospy.get_param('~object', 'chair')
   
     marker.header.frame_id = "base_link"
     marker.type = marker.TEXT_VIEW_FACING
