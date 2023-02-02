@@ -63,6 +63,16 @@ Noutro terminal: `roslaunch robutler_navigation localization.launch`
 
 Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionem primeiro o 'map' como fixed frame nas global settings
 
+## Para o menu interativo:
+
+Noutro terminal: `rosrun robutler_menu menu.py`
+
+No Rviz: adicionar um display de 'Interactive Markers' e escolher o tópico '/menu/update'
+
+Aparecerá por cima do robô uma esfera vermelha, basta fazer clique direito nela para interagir.
+
+
+
 # Tasks
 
 TODO:
