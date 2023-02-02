@@ -2170,28 +2170,28 @@
       <static>1</static>
     </model>
     <state world_name='default'>
-      <sim_time>10753 951000000</sim_time>
-      <real_time>357 295320899</real_time>
-      <wall_time>1675250470 252260165</wall_time>
-      <iterations>345619</iterations>
+      <sim_time>11136 900000000</sim_time>
+      <real_time>386 582288485</real_time>
+      <wall_time>1675336780 735791645</wall_time>
+      <iterations>382949</iterations>
       <model name='Construction Cone'>
         <pose>1.23052 -3.16654 -0 0 -0 0.012</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>1.23052 -3.16654 -0 0 -0 0.012</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 18.7926 1.24922 -1.20541 3.14159</acceleration>
-          <wrench>0 -0 18.7926 0 -0 0</wrench>
+          <acceleration>2e-06 -3e-06 14.4743 0.746613 -0.638024 3.14159</acceleration>
+          <wrench>2e-06 -3e-06 14.4743 0 -0 0</wrench>
         </link>
       </model>
       <model name='Dumpster'>
-        <pose>2.89839 3.82804 0.001377 -1e-06 -0 1.57181</pose>
+        <pose>2.89839 3.82804 0.001376 -2e-06 -0 1.57181</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>2.89839 3.82804 0.001377 -1e-06 -0 1.57181</pose>
+          <pose>2.89839 3.82804 0.001376 -2e-06 -0 1.57181</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.007793 -8e-06 0.562617 0.005731 0.629326 -0</acceleration>
-          <wrench>-0.007793 -8e-06 0.562617 0 -0 0</wrench>
+          <acceleration>-0.007618 -8e-06 0.331363 0.005603 0.755498 0</acceleration>
+          <wrench>-0.007618 -8e-06 0.331363 0 -0 0</wrench>
         </link>
       </model>
       <model name='Fridge_Cabinet_33x15_clone_2_clone'>
@@ -2420,8 +2420,8 @@
         <link name='link'>
           <pose>-1.63867 -0.345895 0.897139 0 -0 0.001304</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 7e-06 -6e-06 8e-06 -0</acceleration>
-          <wrench>-0 0 7e-06 0 -0 0</wrench>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='aws_robomaker_residential_Dumbbell_01'>
@@ -2475,13 +2475,13 @@
         </link>
       </model>
       <model name='aws_robomaker_residential_ShoeRack_01'>
-        <pose>1.86623 -0.468458 0.004464 0 -0 3.13261</pose>
+        <pose>1.86666 -0.468474 0.004446 0 4.4e-05 3.13264</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>1.86623 -0.468458 0.004464 0 -0 3.13261</pose>
+          <pose>1.86666 -0.468474 0.004446 0 4.4e-05 3.13264</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0.21687 -0.007724 18.4971 1.60538 -1.26658 -0.005121</acceleration>
-          <wrench>1.30122 -0.046346 110.983 0 -0 0</wrench>
+          <acceleration>-0.218721 0.006418 -8.70639 -1.17391 0.690024 0.006628</acceleration>
+          <wrench>-1.31233 0.038505 -52.2384 0 -0 0</wrench>
         </link>
       </model>
       <model name='aws_robomaker_residential_TV_02'>
@@ -2515,13 +2515,13 @@
         </link>
       </model>
       <model name='beer'>
-        <pose>-6.17738 -1.69194 0.775 -6e-06 1e-06 0.018443</pose>
+        <pose>-6.17736 -1.69183 0.77499 0 -0 0.019837</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-6.17738 -1.69194 0.89 -6e-06 1e-06 0.018443</pose>
+          <pose>-6.17736 -1.69183 0.88999 0 -0 0.019837</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0.38024 2.77243 -3.25948 1.14232 -1.16283 -2.57997</acceleration>
-          <wrench>0.148294 1.08125 -1.2712 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -3.822 0 -0 0</wrench>
         </link>
       </model>
       <model name='blue_bin_cuboid'>
@@ -2815,6 +2815,16 @@
         <scale>1 1 1</scale>
         <link name='link_22'>
           <pose>1.58187 2.9133 0 0 -0 1.57592</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='football_in_between_equipement_of_gym'>
+        <pose>-2.56902 4.34428 0.04 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='soccer_ball_link'>
+          <pose>-2.56902 4.34428 0.04 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -3178,8 +3188,8 @@
         <link name='body'>
           <pose>-5.54053 -1.64338 0.825012 5e-06 0.000154 -0.011996</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -0 0 -0 0</acceleration>
-          <wrench>0 -0 -0 0 -0 0</wrench>
+          <acceleration>-0 0 0 0 -0 0</acceleration>
+          <wrench>-0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='person_standing'>
@@ -3188,8 +3198,8 @@
         <link name='link'>
           <pose>-2.03085 -4.87448 0 0 1e-06 1.58192</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0.026215 -2.09526 1.00037 2.13273 0.027188 -8.6e-05</acceleration>
-          <wrench>2.09717 -167.621 80.0295 0 -0 0</wrench>
+          <acceleration>0.020348 -2.09533 1.00041 2.1328 0.021898 8.1e-05</acceleration>
+          <wrench>1.6278 -167.627 80.0325 0 -0 0</wrench>
         </link>
       </model>
       <model name='pickup'>
@@ -6315,7 +6325,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-2.82077 0.58252 15.9556 -2e-06 1.5698 0.114018</pose>
+        <pose>-2.96512 3.92009 3.6792 2e-06 1.5698 -0.045983</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -14846,6 +14856,56 @@
       </link>
       <static>1</static>
       <pose>-3.6737 3.1692 0 0 -0 0</pose>
+    </model>
+    <model name='football_in_between_equipement_of_gym'>
+      <static>0</static>
+      <link name='soccer_ball_link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <mass>0.026</mass>
+          <inertia>
+            <ixx>1.664e-05</ixx>
+            <iyy>1.664e-05</iyy>
+            <izz>1.664e-05</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <sphere>
+              <radius>0.04</radius>
+            </sphere>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>0.04 0.04 0.04</scale>
+              <uri>model://robocup_3Dsim_ball/meshes/ball.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-3.67 4.22 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>
