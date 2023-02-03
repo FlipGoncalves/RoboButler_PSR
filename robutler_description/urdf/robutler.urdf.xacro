@@ -279,4 +279,88 @@
   </joint>
   <link name="camera_rgb_optical_frame"/>
 
+
+
+
+  <!-- Arm claw -->
+  <!-- Connect CameraBase to the claw -->
+  <link name="pole_to_claw">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.012"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_claw_joint" type="fixed">
+    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+    <origin xyz="0.05 0 -0.35" rpy="0 1.57075 0"/>
+    <parent link="camera_to_base"/>
+    <child link="pole_to_claw"/>
+  </joint>
+
+  <link name="claw_right_first">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.01"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_claw_right_first_joint" type="fixed">
+    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+    <origin xyz="0 -0.02 0.055" rpy="0.8 0 0"/>
+    <parent link="pole_to_claw"/>
+    <child link="claw_right_first"/>
+  </joint>
+
+  <link name="claw_right_second">
+    <visual>
+      <geometry>
+        <cylinder length="0.03" radius="0.01"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_claw_right_second_joint" type="fixed">
+    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+    <origin xyz="0 0.01 ${0.0148 + 0.01}" rpy="1.57075 0 0"/>
+    <parent link="claw_right_first"/>
+    <child link="claw_right_second"/>
+  </joint>
+
+  <link name="claw_left_first">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.01"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_claw_left_first_joint" type="fixed">
+    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+    <origin xyz="0 0.02 0.055" rpy="-0.8 0 0"/>
+    <parent link="pole_to_claw"/>
+    <child link="claw_left_first"/>
+  </joint>
+
+  <link name="claw_left_second">
+    <visual>
+      <geometry>
+        <cylinder length="0.03" radius="0.01"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_claw_left_second_joint" type="fixed">
+    <origin xyz="0 -0.01 ${0.0148 + 0.01}" rpy="-1.57075 0 0"/>
+    <parent link="claw_left_first"/>
+    <child link="claw_left_second"/>
+  </joint>
+
 </robot>
