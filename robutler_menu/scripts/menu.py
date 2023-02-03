@@ -31,7 +31,7 @@ import rospy
 from interactive_markers.interactive_marker_server import *
 from interactive_markers.menu_handler import *
 from visualization_msgs.msg import *
-
+from std_msgs.msg import String
 from functools import partial
 
 
@@ -41,9 +41,9 @@ menu_handler = MenuHandler()
 
 
 locations = {
-    "Living Room": (-1.67, -3.9),
-    "Bedroom": (-6, 3.25),
-    "Kitchen": (-3.1, -0.9)
+    "living_room": (-1.67, -3.9),
+    "bedroom": (-6, 3.25),
+    "kitchen": (-3.1, -0.9)
 }
 
 objects = [
@@ -61,6 +61,7 @@ def navigationCb(location, feedback):
     handle = feedback.menu_entry_id
     rospy.loginfo(f"going to {location} (handle ID {handle})")
     #server.applyChanges()
+    pub.publish(location)
 
 def photoCb(feedback):
     rospy.loginfo("taking a photo")
@@ -140,7 +141,7 @@ if __name__=="__main__":
     rospy.init_node("menu")
     
     server = InteractiveMarkerServer("menu")
-
+    pub = rospy.Publisher('message', String, queue_size=10)
     initMenu()
     makeMenuMarker("marker")
 
