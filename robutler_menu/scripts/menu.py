@@ -40,11 +40,7 @@ server = None
 menu_handler = MenuHandler()
 
 
-locations = {
-    "living_room": (-1.67, -3.9),
-    "bedroom": (-6, 3.25),
-    "kitchen": (-3.1, -0.9)
-}
+locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "dining_area"]
 
 objects = [
     "Laptop",
@@ -66,6 +62,7 @@ def navigationCb(location, feedback):
 def photoCb(feedback):
     rospy.loginfo("taking a photo")
     #server.applyChanges()
+    pub.publish("take_photo")
 
 def detectCb(obj, feedback):
     handle = feedback.menu_entry_id
@@ -117,7 +114,7 @@ def makeMenuMarker( name ):
 def initMenu():
     # Navigation menu
     go_to_handle = menu_handler.insert("Go to...")
-    for loc, coords in locations.items():
+    for loc in locations:
         menu_handler.insert(loc, parent=go_to_handle, callback=partial(navigationCb, loc))
 
     # Visualization menu
