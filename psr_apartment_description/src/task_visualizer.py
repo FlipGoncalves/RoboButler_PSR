@@ -6,13 +6,15 @@ import rospkg
 import cv2
 import actionlib
 import tf
+import threading
+from threading import Event
 from functools import partial
 from visualization_msgs.msg import Marker
 from vision_msgs.msg import Detection2DArray
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from geometry_msgs.msg import Pose, Point, Quaternion
+from geometry_msgs.msg import Pose, Point, Quaternion, PoseWithCovarianceStamped
 from std_msgs.msg import String
 from actionlib_msgs.msg import GoalStatus
 
@@ -21,6 +23,8 @@ from actionlib_msgs.msg import GoalStatus
 
 pub = rospy.Publisher('visualization_marker', Marker, queue_size=10)
 
+
+#lista = []
 
 def parse_classes_file(path):
     classes = []
@@ -49,6 +53,10 @@ def marker(text):
     
     return marker
 
+def pose_callback(pose_msg, actual_pose):
+    actual_pose[0] = pose_msg.pose.pose
+    
+
 
 def image_callback(data, rospack, menu_msg, photo_taken):
     bridge = CvBridge()
@@ -72,18 +80,24 @@ def image_callback(data, rospack, menu_msg, photo_taken):
             photo_num += 1
        
         cv2.imwrite(photo_path, image)
-   
+
+def send_goal_thread(client, goal):
+    client.send_goal(goal)
+    client.wait_for_result()
 
 
-def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving_to_goal):
-    id_list = []
+
+def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving_to_goal, look_for_obj, actual_pose, rot_over, obj_found):
+    client_2 = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+    client_2.wait_for_server()
     msg = menu_msg[0]
+    id_list =[]
     for detection in data.detections:
         # Get the id of each object
         object = detection.results[0].id
-        id_list.append(object)  
-    
-    # Task 1
+        id_list.append(object)
+    print(id_list)  
+    # Task 1 - Move somewhere
     if msg in places.keys() and not goal_reached[0] and not moving_to_goal[0]:
         moving_to_goal[0] = True
         send_goal(places, msg, goal_reached, moving_to_goal)
@@ -91,14 +105,66 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
         text = 'I am in the ' + msg  
         text_show = marker(text)
         pub.publish(text_show)
+    
+    # Task 2 - Look for an object
+    if msg in classes: 
+
+        # Define the goal
+        for i in range(8):
+            goal = Pose()
+            goal.position = actual_pose[0].position
+            goal.orientation = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, i * 45))
+       
+            rot_goal = MoveBaseGoal()
+            rot_goal.target_pose.header.frame_id = "map"
+            rot_goal.target_pose.pose = goal
+                
+            # Send the goal
+            thread = threading.Thread(target=send_goal_thread, args=(client_2, rot_goal))
+            thread.start()
+            # text = 'Looking for ' + str(msg)
+            # text_show = marker(text)
+            # pub.publish(text_show)
+            #print(client_2.get_state())
+            # Check for new object detections
+            rate = rospy.Rate(10.0000)
+
+           
+      
+        rospy.on_shutdown(client_2.cancel_all_goals)
+   
+       
+       
+       
+       
+        # event = threading.Event()
+        # thread = threading.Thread(target=rot_goal, args=(msg, rot_over, look_for_obj, actual_pose, classes))
+        # thread.start()
+        # rot_goal(msg, rot_over, look_for_obj, actual_pose, classes)
+        # if classes.index(msg) in id_list:
+        # # look_for_obj[0] = False
+        #     print("found it!")
+        #     # look_for_obj[0] = False 
+        #     event.set()
+
+        # text_show = marker('Found it!')
+        # pub.publish(text_show)
+         
+    # elif rot_over[0]:
+    #     text_show = marker('There is no ' + msg)
+    #     pub.publish(text_show)
+
       
     
     
-def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal):
+def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal, look_for_obj, rot_over, obj_found):
     menu_msg[0] = data.data
     photo_taken[0] = False
     goal_reached[0] = False
     moving_to_goal[0] = False
+    look_for_obj[0] = False
+    rot_over[0] = False
+    obj_found[0] = False
   
         # if classes.index(data.data) in id_list:
         #     marker.text = 'Found ' + str(id_list.count(classes.index(data.data))) + ' ' + data.data + '!'
@@ -122,30 +188,62 @@ def send_goal(places, target_name, goal_reached, moving_to_goal):
         while True:
             text_show = marker(text)
             pub.publish(text_show)
-        
+
             if client.get_state() == GoalStatus.SUCCEEDED:
                 goal_reached[0] = True
                 break
             elif moving_to_goal[0] == False:
-                client.cancel_all_goals() # add this line
+                client.cancel_all_goals() 
                 break   
     else:
         client.cancel_all_goals()    
+    
     # Wait for the result
     client.wait_for_result()
     rospy.on_shutdown(client.cancel_all_goals)
- 
+   
 
-def rot_goal(places, target_name):
-
-    target = places[target_name]
+def rot_goal(target_name, rot_over, look_for_obj, actual_pose, classes):
+    client = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+    client.wait_for_server()
+       
+    
+   
+    # Define the goal
     for i in range(8):
-        rot_goal = Pose()
 
-        rot_goal.position = target['pose'].position
-        rot_goal.orientation = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, i * 45))
+        goal = Pose()
+        goal.position = actual_pose[0].position
+        goal.orientation = Quaternion(*tf.transformations.quaternion_from_euler(0, 0, i * 45))
 
-        send_goal(rot_goal)
+        rot_goal = MoveBaseGoal()
+        rot_goal.target_pose.header.frame_id = "map"
+        rot_goal.target_pose.pose = goal
+         
+        if classes.index(target_name) in id_list:
+            client.cancel_all_goals()    
+            break
+            
+        # Send the goal
+        if look_for_obj[0] == True:
+            client.send_goal(rot_goal)
+            text = 'Looking for ' + str(target_name)
+            
+            text_show = marker(text)
+            pub.publish(text_show)
+            
+
+            client.wait_for_result()
+
+        else:
+            client.cancel_all_goals()    
+            break
+  
+    # Wait for the result
+    client.wait_for_result()
+    rospy.on_shutdown(client.cancel_all_goals)
+
+        
 
 
 def stop_publishing(): 
@@ -159,11 +257,14 @@ def main():
     classes = parse_classes_file(path + "/dataset/coco80.txt")
     id_list = []
     menu_msg = [None]
+    actual_pose = [None]
     goal_reached = [False]
     photo_taken = [False]
     moving_to_goal = [False]
-    
-    
+    look_for_obj = [False]
+    rot_over = [False]
+    obj_found = [False]
+   
     # Places
     places = {
     "bedroom": {'pose': Pose(position=Point(x=-6, y=3.25, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))},
@@ -181,9 +282,11 @@ def main():
     "main_corridor": {'pose': Pose(position=Point(x=-4, y=1.25, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))}}
 
 
-    sub_1 = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_yolo, classes=classes, id_list=id_list, places=places, menu_msg=menu_msg, goal_reached=goal_reached, moving_to_goal=moving_to_goal))
+    yolo_sub = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_yolo, classes=classes, id_list=id_list, places=places, menu_msg=menu_msg, goal_reached=goal_reached, moving_to_goal=moving_to_goal, look_for_obj=look_for_obj, actual_pose=actual_pose, rot_over=rot_over, obj_found=obj_found))
     image_sub = rospy.Subscriber('camera/rgb/image_raw', Image, partial(image_callback, rospack=rospack, menu_msg= menu_msg, photo_taken=photo_taken))
-    menu_sub = rospy.Subscriber('message', String, partial(callback_menu, menu_msg=menu_msg, photo_taken=photo_taken, goal_reached=goal_reached, moving_to_goal=moving_to_goal))
+    menu_sub = rospy.Subscriber('message', String, partial(callback_menu, menu_msg=menu_msg, photo_taken=photo_taken, goal_reached=goal_reached, moving_to_goal=moving_to_goal, look_for_obj=look_for_obj, rot_over=rot_over, obj_found=obj_found))
+    pose_sub = rospy.Subscriber("amcl_pose", PoseWithCovarianceStamped, partial(pose_callback, actual_pose=actual_pose))
+
 
     rospy.on_shutdown(stop_publishing) # when node shutdown calls the stop_publishing function
     rospy.spin()
@@ -193,6 +296,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
 
    
     

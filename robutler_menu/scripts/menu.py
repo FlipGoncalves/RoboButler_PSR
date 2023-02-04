@@ -42,10 +42,7 @@ menu_handler = MenuHandler()
 
 locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "dining_area"]
 
-objects = [
-    "Laptop",
-    "Chair"
-]
+objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator']
 
 missions = [
     "Look for laptop in office",
@@ -68,6 +65,8 @@ def detectCb(obj, feedback):
     handle = feedback.menu_entry_id
     rospy.loginfo(f"looking for {obj}")
     #server.applyChanges()
+    pub.publish(obj)
+
 
 def countCb(obj, feedback):
     handle = feedback.menu_entry_id
