@@ -44,37 +44,37 @@ basic_placements = {
     "bed": {'pose': Pose(position=Point(x=-5.69, y=4.37, z=0.65), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'bedroom'},
     
     "beside_cabinet": {'pose': Pose(position=Point(x=-0.88, y=4.97, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
-    "top_chair": {'pose': Pose(position=Point(x=1.18, y=5.22, z=0.45), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
-    "top_desk": {'pose': Pose(position=Point(x=1.02, y=3.2, z=0.7), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
+    "top_chair_office": {'pose': Pose(position=Point(x=1.18, y=5.22, z=0.49), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
+    "top_desk": {'pose': Pose(position=Point(x=1.02, y=3.2, z=0.74), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
     "under_desk": {'pose': Pose(position=Point(x=1.60, y=3.36, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'office'},
     
     "next_plant": {'pose': Pose(position=Point(x=-7.58, y=-0.15, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'balcony'},
     "corner_plant": {'pose': Pose(position=Point(x=-7.54, y=-5.14, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'balcony'},
 
-    "top_chair": {'pose': Pose(position=Point(x=-6.2, y=-5.2, z=0.46), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
+    "top_chair": {'pose': Pose(position=Point(x=-6.2, y=-5.2, z=0.49), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
     "under_table": {'pose': Pose(position=Point(x=-4.9, y=-4.3, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
     "ontop_table": {'pose': Pose(position=Point(x=-5.5, y=-3.6, z=1.01), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
-    "ontop_coffee_table": {'pose': Pose(position=Point(x=-5.48, y=-2.2, z=0.76), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
+    "ontop_coffee_table": {'pose': Pose(position=Point(x=-5.48, y=-2.2, z=0.76), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'}, #0.483 with the new table
     "behind_coffee_table": {'pose': Pose(position=Point(x=-6.43, y=-1.83, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'dining_area'},
 
     "corner_fridge": {'pose': Pose(position=Point(x=-3.25, y=0.08, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
-    "corner_atop": {'pose': Pose(position=Point(x=-3.56, y=-1.68, z=0.88), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
-    "near_sink": {'pose': Pose(position=Point(x=-1.83, y=-1.68, z=0.88), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
+    "corner_atop": {'pose': Pose(position=Point(x=-3.56, y=-1.68, z=0.91), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
+    "near_sink": {'pose': Pose(position=Point(x=-1.83, y=-1.68, z=0.91), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
     "front_person": {'pose': Pose(position=Point(x=-2.42, y=-0.45, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'kitchen'},
     
     "near_tv": {'pose': Pose(position=Point(x=-0.66, y=-4.7, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
-    "front_tv": {'pose': Pose(position=Point(x=-0.7, y=-3.82, z=0.31), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
+    "front_tv": {'pose': Pose(position=Point(x=-0.7, y=-3.82, z=0.325), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
     "behind_sofa": {'pose': Pose(position=Point(x=-3.32, y=-5.4, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
     "corner_sofa": {'pose': Pose(position=Point(x=-2.3, y=-5.4, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
-    "atop_bookshelf": {'pose': Pose(position=Point(x=-1.63, y=-2.37, z=1.18), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
+    "atop_bookshelf": {'pose': Pose(position=Point(x=-1.63, y=-2.37, z=1.20), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'living_room'},
 
-    "atop_shoerack": {'pose': Pose(position=Point(x=1.87, y=-0.48, z=1.011), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'shoerack_division'},
+    "atop_shoerack": {'pose': Pose(position=Point(x=1.87, y=-0.48, z=1.025), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'shoerack_division'},
     "corner": {'pose': Pose(position=Point(x=1.23, y=-0.41, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'shoerack_division'},
 
     "corner_far_right": {'pose': Pose(position=Point(x=1.64, y=0.1, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'blueblock_division'},
     "corner_far_left": {'pose': Pose(position=Point(x=1.64, y=2, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'blueblock_division'},
 
-    "top_cabinet": {'pose': Pose(position=Point(x=-1.84, y=3.72, z=0.373), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'gym'},
+    "top_cabinet": {'pose': Pose(position=Point(x=-1.84, y=3.72, z=0.39), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'gym'},
     "between_equipement": {'pose': Pose(position=Point(x=-3.67, y=4.22, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1)), 'room': 'gym'},
     
 }
