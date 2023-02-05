@@ -111,8 +111,22 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
             text_show = marker('Did not find any ' + msg)
             pub.publish(text_show)
 
-       
-    
+    # Task 3 - Count the number of an object
+    if msg:
+        msg_words = msg.split()
+        if msg_words[0] == 'count':
+            if classes.index(msg_words[1]) in id_list:
+                counter = id_list.count(classes.index(msg_words[1]))
+                if counter > 1:
+                    text_show = marker('There are ' + str(counter) + ' ' + msg_words[1])
+                    pub.publish(text_show)
+                elif counter == 1:
+                    text_show = marker('There is '  + str(1) + msg_words[1])
+                    pub.publish(text_show)
+            else:
+                text_show = marker('There is no ' + msg_words[1])
+                pub.publish(text_show)
+                    
     
 def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal, look_for_obj, rot_over, obj_found):
     menu_msg[0] = data.data

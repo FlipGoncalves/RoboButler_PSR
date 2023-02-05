@@ -72,6 +72,7 @@ def countCb(obj, feedback):
     handle = feedback.menu_entry_id
     rospy.loginfo(f"counting {obj}")
     #server.applyChanges()
+    pub.publish('count ' + obj)
 
 def missionCb(mission, feedback):
     handle = feedback.menu_entry_id
