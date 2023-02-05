@@ -92,7 +92,7 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
     if msg in places.keys() and not goal_reached[0] and not moving_to_goal[0]:
         moving_to_goal[0] = True
         send_goal(places, msg, goal_reached, moving_to_goal)
-    elif goal_reached[0]:
+    elif goal_reached[0] and not look_for_obj[0]:
         text = 'I am in the ' + msg  
         text_show = marker(text)
         pub.publish(text_show)
@@ -126,7 +126,25 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
             else:
                 text_show = marker('There is no ' + msg_words[1])
                 pub.publish(text_show)
-                    
+    
+    # Mission 1 - Looking for laptop in office
+        if msg_words[0] == 'Look' and not goal_reached[0] and not moving_to_goal[0]:
+            moving_to_goal[0] = True
+            send_goal(places, msg_words[4], goal_reached, moving_to_goal)
+        if goal_reached[0]:
+            if classes.index(msg_words[2]) in id_list:
+                obj_found[0]=True
+                text_show = marker('Found it!')
+                pub.publish(text_show)
+            if not look_for_obj[0] and not obj_found[0]:
+                look_for_obj[0] = True
+                thread_1 = threading.Thread(target=rot_goal, args=(msg_words[2], look_for_obj, actual_pose, obj_found, rot_over))
+                thread_1.start()
+            if rot_over[0]:
+                text_show = marker('Did not find any ' + msg_words[2])
+                pub.publish(text_show)
+
+
     
 def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal, look_for_obj, rot_over, obj_found):
     menu_msg[0] = data.data
@@ -137,11 +155,7 @@ def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal, loo
     rot_over[0] = False
     obj_found[0] = False
   
-        # if classes.index(data.data) in id_list:
-        #     marker.text = 'Found ' + str(id_list.count(classes.index(data.data))) + ' ' + data.data + '!'
-        # else:
-        #     marker.text = "Searching for " + 
-
+       
 def send_goal(places, target_name, goal_reached, moving_to_goal):
     client = actionlib.SimpleActionClient("move_base", MoveBaseAction)
     client.wait_for_server()

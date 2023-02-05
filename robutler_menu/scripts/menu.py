@@ -45,7 +45,7 @@ locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "d
 objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator']
 
 missions = [
-    "Look for laptop in office",
+    "Look for bottle in dining_area",
     "Count chairs in the dining area"
 ]
 
@@ -78,7 +78,7 @@ def missionCb(mission, feedback):
     handle = feedback.menu_entry_id
     rospy.loginfo("Performing mission: " + mission)
     #server.applyChanges()
-
+    pub.publish(mission)
 
 def makeBall( msg ):
     marker = Marker()
