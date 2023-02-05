@@ -281,6 +281,50 @@
 
 
 
+  <!-- Weight distribution -->
+  <link name="base_middle">
+    <visual>
+      <geometry>
+        <cylinder length="0.25" radius="0.02"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.25" radius="0.02"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.5" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_middle_joint" type="fixed">
+    <origin xyz="-0.145 0 0.15" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="base_middle"/>
+  </joint>
+
+  <link name="pole_to_middle">
+    <visual>
+      <geometry>
+        <cylinder length="0.178" radius="0.02"/>
+      </geometry>
+      <material name="turquoise"/> 
+    </visual>
+  </link>
+
+  <joint name="pole_to_middle_joint" type="fixed">
+    <origin xyz="0 0 0.089" rpy="1.57075 0 0"/>
+    <parent link="base_middle"/>
+    <child link="pole_to_middle"/>
+  </joint>
+
+
 
   <!-- Arm claw -->
   <!-- Connect CameraBase to the claw -->
@@ -295,7 +339,7 @@
 
   <joint name="pole_to_claw_joint" type="fixed">
     <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
-    <origin xyz="0.05 0 -0.35" rpy="0 1.57075 0"/>
+    <origin xyz="0.05 0 -0.25" rpy="0 1.57075 0"/>
     <parent link="camera_to_base"/>
     <child link="pole_to_claw"/>
   </joint>
@@ -307,6 +351,10 @@
       </geometry>
       <material name="turquoise"/> 
     </visual>
+    <inertial>
+        <mass value="0.18" />
+        <inertia ixx="0.0002835" ixy="0.0" ixz="0.0" iyy="0.0002835" iyz="0.0" izz="0.000324" />
+    </inertial>
   </link>
 
   <joint name="pole_to_claw_right_first_joint" type="fixed">
@@ -323,13 +371,25 @@
       </geometry>
       <material name="turquoise"/> 
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.018" radius="0.033"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.04" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
-  <joint name="pole_to_claw_right_second_joint" type="fixed">
-    <!-- <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/> -->
+  <joint name="pole_to_claw_right_second_joint" type="continuous">
     <origin xyz="0 0.01 ${0.0148 + 0.01}" rpy="1.57075 0 0"/>
     <parent link="claw_right_first"/>
     <child link="claw_right_second"/>
+    <dynamics damping="0.7"/>
   </joint>
 
   <link name="claw_left_first">
@@ -339,6 +399,10 @@
       </geometry>
       <material name="turquoise"/> 
     </visual>
+    <inertial>
+      <mass value="0.18" />
+      <inertia ixx="0.0002835" ixy="0.0" ixz="0.0" iyy="0.0002835" iyz="0.0" izz="0.000324" />
+    </inertial>
   </link>
 
   <joint name="pole_to_claw_left_first_joint" type="fixed">
@@ -355,12 +419,49 @@
       </geometry>
       <material name="turquoise"/> 
     </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.018" radius="0.033"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.04" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      </inertial>
   </link>
 
-  <joint name="pole_to_claw_left_second_joint" type="fixed">
+  <joint name="pole_to_claw_left_second_joint" type="continuous">
     <origin xyz="0 -0.01 ${0.0148 + 0.01}" rpy="-1.57075 0 0"/>
     <parent link="claw_left_first"/>
     <child link="claw_left_second"/>
+    <dynamics damping="0.7"/>
   </joint>
+
+  <!-- transmission -->
+  <transmission name="right_claw">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="right_claw_actuator">
+      <mechanicalReduction>20</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+    <joint name="pole_to_claw_right_second_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- transmission -->
+  <transmission name="left_claw">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="left_claw_actuator">
+      <mechanicalReduction>20</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+    <joint name="pole_to_claw_left_second_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
 
 </robot>

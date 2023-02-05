@@ -36,7 +36,7 @@ import tkinter as tk
 from tkinter import ttk
 
 BURGER_MAX_LIN_VEL = 0.4
-BURGER_MAX_ANG_VEL = 1.80
+BURGER_MAX_ANG_VEL = 1.0
 
 LIN_VEL_STEP_SIZE = 0.05
 ANG_VEL_STEP_SIZE = 0.05

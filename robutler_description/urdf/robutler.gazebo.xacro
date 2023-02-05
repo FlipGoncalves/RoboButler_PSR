@@ -4,8 +4,64 @@
   <xacro:arg name="camera_visual" default="false"/>
   <xacro:arg name="imu_visual"    default="false"/>
 
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/robutler</robotNamespace>
+    </plugin>
+  </gazebo>
+
   <gazebo reference="base_link">
     <!-- <material>Gazebo/DarkGrey</material> -->
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="pole_to_middle">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="base_middle">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="box2">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo reference="box">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo reference="head">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="camera_to_base">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="camera_base_to_base">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="claw_right_second">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
+
+  <gazebo reference="claw_left_second">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
     <material>Gazebo/Turquoise</material>
   </gazebo>
 
@@ -60,6 +116,14 @@
     </sensor>
     <material>Gazebo/Grey</material>
   </gazebo>
+
+  <!-- <gazebo>
+    <plugin name="JointStatePublisher" filename="libJointStatePublisher.so">
+      <joint>pole_to_claw_right_second_joint</joint>
+      <joint>pole_to_claw_left_second_joint</joint>
+      <publish_selected_only>true</publish_selected_only>
+    </plugin> 
+  </gazebo> -->
 
   <gazebo>
     <plugin name="turtlebot3_waffle_pi_controller" filename="libgazebo_ros_diff_drive.so">

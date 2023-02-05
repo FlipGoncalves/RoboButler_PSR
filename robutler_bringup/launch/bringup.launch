@@ -14,16 +14,28 @@
         <arg name="z_pos" value="$(arg z_pos)"/>
     </include>
 
-     <!-- Launch Yolo -->
+    <!-- Launch Yolo -->
     <include file="$(find robutler_perception)/launch/yolo.launch">
     </include>
 
-    
     <!-- Launch teleop -->
     <node name="teleop" pkg="teleop" type="key_teleop.py" output="screen"/>
 
+    <!-- For the claw -->
+    <!-- load the controllers -->
+    <rosparam file="$(find robutler_description)/config/config.yaml" command="load"/>
+    <node name="controller_spawner_gazebo" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="robutler" 
+        args="joint_state_controller pole_to_claw_right_second_joint_position_controller pole_to_claw_left_second_joint_position_controller" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <param name="use_gui" value="true" />
+    </node>
+
     <!-- Launch robot state publisher to get tf from joint_state -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <!-- For the claw -->
+        <remap from="/joint_states" to="/robutler/joint_states" />
+    </node>
 
     <!-- Launch rviz, loading configuration file -->
     <node name="rviz" pkg="rviz" type="rviz" args="--display-config $(find robutler_bringup)/config/visualization.rviz" required="false"/>
