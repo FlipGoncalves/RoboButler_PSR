@@ -85,5 +85,14 @@ De modo a que o robô execute as missões é necessário noutro terminal correr 
 
 Depois de o task_visualizer estar a correr, é so selecionar no menu as missóes que pretende executar.
 
+Também aparecerá um teleop, iniciado pelo ficheiro `teleop/src/key_teleop.py`, em que pode mexer as teclas w/s para aumentar/diminuir a velocidade linear, a/d para aumentar/diminuir a velocidade angular, space-bar para parar por completo o robo e q para terminar a sessão.
+
 # Missões
-- 
+- Look for refrigerator in kitchen
+- Look for bottle in dining_area
+- Look for book in bedroom
+- Look for stop_sign outside
+- Look for person in gym
+- Count chair in the dining_area
+- Look for laptop in office
+- Take photo of office
