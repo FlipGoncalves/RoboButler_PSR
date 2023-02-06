@@ -67,7 +67,9 @@ Noutro terminal: `rosrun psr_apartment_description spawn_object.py`
 
 Para especificar o objeto e local do spawn: 
 `rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=<object>`
+```
             --ou--
+```
 `rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=-1`
             --ou--
 `rosrun psr_apartment_description spawn_object.py _place:=-1 _object:=<object>`
