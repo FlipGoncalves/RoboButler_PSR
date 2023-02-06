@@ -66,13 +66,13 @@ Noutro terminal: `rosrun psr_apartment_description spawn_object.py`
     Se não especificar qual o objeto e local, o spawn é random
 
 Para especificar o objeto e local do spawn: 
-`rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=<object>
-            --or--
-rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=-1
-            --or--
-rosrun psr_apartment_description spawn_object.py _place:=-1 _object:=<object>
-            --or--
-rosrun psr_apartment_description spawn_object.py _place:=-1 _object:=-1`
+`rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=<object>`
+            --ou--
+`rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=-1`
+            --ou--
+`rosrun psr_apartment_description spawn_object.py _place:=-1 _object:=<object>`
+            --ou--
+`rosrun psr_apartment_description spawn_object.py _place:=-1 _object:=-1`
 
 ## Para o menu interativo:
 Noutro terminal: `rosrun robutler_menu menu.py`
