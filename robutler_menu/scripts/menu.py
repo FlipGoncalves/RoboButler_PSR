@@ -42,12 +42,17 @@ menu_handler = MenuHandler()
 
 locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "dining_area"]
 
-objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator']
+objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator', "stop_sign"]
 
 missions = [
+    "Look for refrigerator in kitchen",
+    "Look for bottle in dining_area",
+    "Look for book in bedroom",
+    "Look for stop_sign outside",
     "Look for person in gym",
     "Count chair in the dining_area",
-    "Look for laptop in office"
+    "Look for laptop in office",
+    "Take photo of office"
 ]
 
 
