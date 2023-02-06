@@ -26,7 +26,7 @@ cd robutler_perception
 pip install -r requirements.txt
 ```
 
-- Clone (... faltar escrever):
+- Clone dependências e modelos necessários:
 ```bash
 cd ~/catkin_ws/src/
 git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
@@ -65,7 +65,7 @@ Noutro terminal: `rosrun psr_apartment_description spawn_object.py`
 
     Se não especificar qual o objeto e local, o spawn é random
 
-Para especificar o objeto e local do spawn: 
+Para especificar o objeto e local do spawn (exemplos): 
 `rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=<object>`
 
 `rosrun psr_apartment_description spawn_object.py _place:=<place> _object:=-1`
