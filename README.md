@@ -71,7 +71,9 @@ No Rviz: adicionar um display de 'Interactive Markers' e escolher o tópico '/me
 
 Aparecerá por cima do robô uma esfera vermelha, basta fazer clique direito nela para interagir.
 
+De modo a que o robô execute as missões é necessário noutro terminal correr o task_vizualizer da seguinte forma: `rosrun psr_apartment_description task_visualizer.py`.
 
+Depois de o task_visualizer estar a correr, é so selecionar no menu as missóes que pretende executar.
 
 # Tasks
 
