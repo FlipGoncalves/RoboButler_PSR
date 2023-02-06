@@ -1,7 +1,7 @@
 # Installation
 Partindo do principio que já têm o catkin_ws configurado:
 
-- Install turtlebot:
+- Instalar turtlebot:
 ```bash
 sudo apt install ros-noetic-dynamixel-sdk
 sudo apt install ros-noetic-turtlebot3-msgs
@@ -11,6 +11,7 @@ sudo apt install ros-noetic-turtlebot3
 - Exportar modelo do turtlebot:
 
     Abrir .bashrc: `gedit ~/.bashrc`
+
     Acrescentar esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
 
 - Clone and build turtlebot simulation repositories:
@@ -26,48 +27,35 @@ cd robutler_perception
 pip install -r requirements.txt
 ```
 
-- Clone and build esta dependência para a visão:
+- Clone (... faltar escrever):
 ```bash
 cd ~/catkin_ws/src/
+git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
+git clone https://github.com/aws-robotics/aws-robomaker-hospital-world
 git clone https://github.com/ros-perception/vision_msgs.git
-cd ~/catkin_ws && catkin_make
-```
-
-- Clone modelos do apartamento:
-```bash
-cd ~/catkin_ws/src/
 git clone https://github.com/oguran/models
 cd ~/catkin_ws && catkin_make
 ```
-
-- Clone worlds:
-```bash
-cd ~/catkin_ws/src
-git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
-git clone https://github.com/aws-robotics/aws-robomaker-hospital-world
-```
-
 
 # Run simulation
 Com os packages do repositório do projeto no catkin_ws/src:
 
 ## Iniciar mundo:
-
 Num terminal: `roslaunch robutler_bringup gazebo.launch`
 
 
-## Iniciar robo:
-
+## Iniciar robô:
 Noutro terminal: `roslaunch robutler_bringup bringup.launch`
+
+É gerado o tele
 
 
 ## Para a navigation:
-
 Noutro terminal: `roslaunch robutler_navigation localization.launch`
 
-(após esse correr) Noutro terminal: `roslaunch robutler_navigation move_base.launch`
+Noutro terminal: `roslaunch robutler_navigation move_base.launch`
 
-Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionem primeiro o 'map' como fixed frame nas global settings
+Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionar primeiro o 'map' como fixed frame nas global settings
 
 ## Para o menu interativo:
 
