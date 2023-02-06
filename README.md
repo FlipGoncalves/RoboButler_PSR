@@ -1,46 +1,52 @@
 # Installation
 Partindo do principio que já têm o catkin_ws configurado:
 
-install turtlebot:
+- Install turtlebot:
 ```bash
 sudo apt install ros-noetic-dynamixel-sdk
 sudo apt install ros-noetic-turtlebot3-msgs
 sudo apt install ros-noetic-turtlebot3
 ```
 
-exportar modelo do turtlebot:
+- Exportar modelo do turtlebot:
 
-abrir .bashrc: `gedit ~/.bashrc`
+    Abrir .bashrc: `gedit ~/.bashrc`
+    Acrescentar esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
 
-por esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
-
-clone and build turtlebot simulation repositories:
+- Clone and build turtlebot simulation repositories:
 ```bash
 cd ~/catkin_ws/src/
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/catkin_ws && catkin_make
 ```
 
-instalar dependências python:
+- Instalar dependências python:
 ```bash
 cd robutler_perception
 pip install -r requirements.txt
 ```
 
-clone and build esta dependência para a visão:
+- Clone and build esta dependência para a visão:
 ```bash
 cd ~/catkin_ws/src/
 git clone https://github.com/ros-perception/vision_msgs.git
 cd ~/catkin_ws && catkin_make
 ```
 
+- Clone modelos do apartamento:
+```bash
+cd ~/catkin_ws/src/
+git clone https://github.com/oguran/models
+cd ~/catkin_ws && catkin_make
+```
 
-download worlds:
+- Clone worlds:
 ```bash
 cd ~/catkin_ws/src
 git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
 git clone https://github.com/aws-robotics/aws-robomaker-hospital-world
 ```
+
 
 # Run simulation
 Com os packages do repositório do projeto no catkin_ws/src:
