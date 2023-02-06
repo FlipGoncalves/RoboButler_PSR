@@ -19,7 +19,6 @@ from std_msgs.msg import String
 from actionlib_msgs.msg import GoalStatus
 
 
-### Correr o node como rosrun psr_apartment_description task_visualizer.py _object:=(class name) ###
 
 pub = rospy.Publisher('visualization_marker', Marker, queue_size=10)
 
@@ -80,9 +79,12 @@ def image_callback(data, rospack, menu_msg, photo_taken):
 
 
 
-def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving_to_goal, look_for_obj, actual_pose, rot_over, obj_found):
+def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving_to_goal, look_for_obj,
+ actual_pose, rot_over, obj_found, mission_1, mission_2):
+    
     msg = menu_msg[0]
-    id_list =[]
+    id_list = []
+    
     for detection in data.detections:
         # Get the id of each object
         object = detection.results[0].id
@@ -92,7 +94,7 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
     if msg in places.keys() and not goal_reached[0] and not moving_to_goal[0]:
         moving_to_goal[0] = True
         send_goal(places, msg, goal_reached, moving_to_goal)
-    elif goal_reached[0] and not look_for_obj[0]:
+    elif goal_reached[0] and not look_for_obj[0] and not mission_2[0]:
         text = 'I am in the ' + msg  
         text_show = marker(text)
         pub.publish(text_show)
@@ -127,11 +129,12 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
                 text_show = marker('There is no ' + msg_words[1])
                 pub.publish(text_show)
     
-    # Mission 1 - Looking for laptop in office
+        # Mission 1 - Looking for laptop in office
         if msg_words[0] == 'Look' and not goal_reached[0] and not moving_to_goal[0]:
             moving_to_goal[0] = True
+            mission_1[0] = True
             send_goal(places, msg_words[4], goal_reached, moving_to_goal)
-        if goal_reached[0]:
+        if goal_reached[0] and mission_1[0]:
             if classes.index(msg_words[2]) in id_list:
                 obj_found[0]=True
                 text_show = marker('Found it!')
@@ -143,8 +146,25 @@ def callback_yolo(data, classes, id_list, places, menu_msg, goal_reached, moving
             if rot_over[0]:
                 text_show = marker('Did not find any ' + msg_words[2])
                 pub.publish(text_show)
-
-
+        
+        # Mission 2 - Count the number of chairs in the dining room
+        if msg_words[0] == 'Count' and not goal_reached[0] and not moving_to_goal[0]:
+            moving_to_goal[0] = True
+            mission_2[0] = True
+            send_goal(places, msg_words[4], goal_reached, moving_to_goal)
+        if goal_reached[0] and mission_2[0]:
+            if classes.index(msg_words[1]) in id_list:
+                counter = id_list.count(classes.index(msg_words[1]))
+                if counter > 1:
+                    text_show = marker('There are ' + str(counter) + ' ' + msg_words[1])
+                    pub.publish(text_show)
+                elif counter == 1:
+                    text_show = marker('There is '  + str(1) + msg_words[1])
+                    pub.publish(text_show)
+            else:
+                text_show = marker('There is no ' + msg_words[1])
+                pub.publish(text_show)
+            
     
 def callback_menu(data, menu_msg, photo_taken, goal_reached, moving_to_goal, look_for_obj, rot_over, obj_found):
     menu_msg[0] = data.data
@@ -248,6 +268,8 @@ def main():
     path = rospack.get_path('robutler_perception')
     classes = parse_classes_file(path + "/dataset/coco80.txt")
     id_list = []
+    mission_1 = [None]
+    mission_2 = [None]
     menu_msg = [None]
     actual_pose = [None]
     goal_reached = [False]
@@ -269,12 +291,12 @@ def main():
     "hall": {'pose': Pose(position=Point(x=0.45, y=-1.4, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))},
     "living_room": {'pose': Pose(position=Point(x=-1.67, y=-3.9, z=0.), orientation=Quaternion(x=0,y=0,z=0,w=1))},
     "kitchen": {'pose': Pose(position=Point(x=-3.1, y=-0.9, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))},
-    "dining_area": {'pose': Pose(position=Point(x=-4.28, y=-2.1, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))},
+    "dining_area": {'pose': Pose(position=Point(x=-4.5, y=-2.5, z=0), orientation=Quaternion(x=0, y=0, z=-0.7, w=0.7))},
     "balcony": {'pose': Pose(position=Point(x=-7.25, y=-3.9, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))},
     "main_corridor": {'pose': Pose(position=Point(x=-4, y=1.25, z=0), orientation=Quaternion(x=0,y=0,z=0,w=1))}}
 
 
-    yolo_sub = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_yolo, classes=classes, id_list=id_list, places=places, menu_msg=menu_msg, goal_reached=goal_reached, moving_to_goal=moving_to_goal, look_for_obj=look_for_obj, actual_pose=actual_pose, rot_over=rot_over, obj_found=obj_found))
+    yolo_sub = rospy.Subscriber("yolov7", Detection2DArray, partial(callback_yolo, classes=classes, id_list=id_list, places=places, menu_msg=menu_msg, goal_reached=goal_reached, moving_to_goal=moving_to_goal, look_for_obj=look_for_obj, actual_pose=actual_pose, rot_over=rot_over, obj_found=obj_found, mission_1=mission_1, mission_2=mission_2))
     image_sub = rospy.Subscriber('camera/rgb/image_raw', Image, partial(image_callback, rospack=rospack, menu_msg= menu_msg, photo_taken=photo_taken))
     menu_sub = rospy.Subscriber('message', String, partial(callback_menu, menu_msg=menu_msg, photo_taken=photo_taken, goal_reached=goal_reached, moving_to_goal=moving_to_goal, look_for_obj=look_for_obj, rot_over=rot_over, obj_found=obj_found))
     pose_sub = rospy.Subscriber("amcl_pose", PoseWithCovarianceStamped, partial(pose_callback, actual_pose=actual_pose))

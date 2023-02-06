@@ -45,8 +45,9 @@ locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "d
 objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator']
 
 missions = [
-    "Look for bottle in dining_area",
-    "Count chairs in the dining area"
+    "Look for person in gym",
+    "Count chair in the dining_area",
+    "Look for laptop in office"
 ]
 
 
