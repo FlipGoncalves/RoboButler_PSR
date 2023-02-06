@@ -1,67 +1,61 @@
 # Installation
 Partindo do principio que já têm o catkin_ws configurado:
 
-install turtlebot:
+- Instalar turtlebot:
 ```bash
 sudo apt install ros-noetic-dynamixel-sdk
 sudo apt install ros-noetic-turtlebot3-msgs
 sudo apt install ros-noetic-turtlebot3
 ```
 
-exportar modelo do turtlebot:
+- Exportar modelo do turtlebot:
 
-abrir .bashrc: `gedit ~/.bashrc`
+    Abrir .bashrc: `gedit ~/.bashrc`
 
-por esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
+    Acrescentar esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
 
-clone and build turtlebot simulation repositories:
+- Clone and build turtlebot simulation repositories:
 ```bash
 cd ~/catkin_ws/src/
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/catkin_ws && catkin_make
 ```
 
-instalar dependências python:
+- Instalar dependências python:
 ```bash
 cd robutler_perception
 pip install -r requirements.txt
 ```
 
-clone and build esta dependência para a visão:
+- Clone (... faltar escrever):
 ```bash
 cd ~/catkin_ws/src/
-git clone https://github.com/ros-perception/vision_msgs.git
-cd ~/catkin_ws && catkin_make
-```
-
-
-download worlds:
-```bash
-cd ~/catkin_ws/src
 git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
 git clone https://github.com/aws-robotics/aws-robomaker-hospital-world
+git clone https://github.com/ros-perception/vision_msgs.git
+git clone https://github.com/oguran/models
+cd ~/catkin_ws && catkin_make
 ```
 
 # Run simulation
 Com os packages do repositório do projeto no catkin_ws/src:
 
 ## Iniciar mundo:
-
 Num terminal: `roslaunch robutler_bringup gazebo.launch`
 
 
-## Iniciar robo:
-
+## Iniciar robô:
 Noutro terminal: `roslaunch robutler_bringup bringup.launch`
+
+É gerado o tele
 
 
 ## Para a navigation:
-
 Noutro terminal: `roslaunch robutler_navigation localization.launch`
 
-(após esse correr) Noutro terminal: `roslaunch robutler_navigation move_base.launch`
+Noutro terminal: `roslaunch robutler_navigation move_base.launch`
 
-Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionem primeiro o 'map' como fixed frame nas global settings
+Para indicar a pose inicial e o goal de navegação a partir do Rviz, selecionar primeiro o 'map' como fixed frame nas global settings
 
 ## Para o menu interativo:
 
