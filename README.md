@@ -89,9 +89,9 @@ No Rviz: adicionar um display de 'Interactive Markers' e escolher o tópico '/me
 
 Aparecerá por cima do robô uma esfera vermelha, basta fazer clique direito nela para interagir.
 
-De modo a que o robô execute as missões é necessário noutro terminal correr o task_vizualizer da seguinte forma: `rosrun psr_apartment_description task_visualizer.py`.
+De modo a que o robô execute as missões é necessário noutro terminal correr o task_vizualizer da seguinte forma: `rosrun psr_apartment_description move.py`.
 
-Depois de o task_visualizer estar a correr, é so selecionar no menu as missóes que pretende executar.
+Depois de o `move.py` estar a correr, é so selecionar no menu as missóes que pretende executar.
 
 Também aparecerá um teleop, iniciado pelo ficheiro `teleop/src/key_teleop.py`, em que pode mexer as teclas w/s para aumentar/diminuir a velocidade linear, a/d para aumentar/diminuir a velocidade angular, space-bar para parar por completo o robo e q para terminar a sessão.
 
