@@ -104,3 +104,6 @@ Também aparecerá um teleop, iniciado pelo ficheiro `teleop/src/key_teleop.py`,
 - Count chair in the dining_area
 - Look for laptop in office
 - Take photo of office
+
+# Nota sobre função de agarrar
+O branch `imp/claw` contém uma funcionalidade adicional de abrir e fechar uma garra que permitiria interagir com objectos, no entanto a sua implementação não está terminada e permanece então separada do branch principal, pelo que tem requisitos adicionais de instalação e poderá interferir com as outras funcionalidades.
