@@ -45,14 +45,14 @@ locations = ["living_room", "bedroom", "kitchen", "gym", "office", "outside", "d
 objects = ['person', "laptop", "chair", 'bottle', 'bed', 'clock', 'book', 'refrigerator', "stop_sign"]
 
 missions = [
-    "Look for refrigerator in kitchen",
     "Look for bottle in dining_area",
     "Look for book in bedroom",
     "Look for stop_sign outside",
     "Look for person in gym",
     "Count chair in the dining_area",
     "Look for laptop in office",
-    "Take photo of office"
+    "Take photo of office",
+    "Take photo of clock in living_room"
 ]
 
 
