@@ -1,5 +1,13 @@
+# Projeto 3 de Programação de Sistemas Robóticos 2022/23
+
+Trabalho realizado por:
+- Diogo Monteiro
+- Filipe Gonçalves
+- Guilherme Cajeira
+- Rafael Oliveira
+
+
 # Instalação
-Partindo do principio que já têm o catkin_ws configurado:
 
 - Instalar turtlebot:
 ```bash
@@ -10,11 +18,11 @@ sudo apt install ros-noetic-turtlebot3
 
 - Exportar modelo do turtlebot:
 
-    Abrir .bashrc: `gedit ~/.bashrc`
+    Abrir .bashrc do editor de escolha, p.e.: `gedit ~/.bashrc`
 
     Acrescentar esta linha no fim e guardar: `export TURTLEBOT3_MODEL=waffle_pi`
 
-- Clone and build turtlebot simulation repositories:
+- Clonar repositórios do turtlebot simulation:
 ```bash
 cd ~/catkin_ws/src/
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
@@ -26,7 +34,7 @@ cd robutler_perception
 pip install -r requirements.txt
 ```
 
-- Clone dependências e modelos necessários:
+- Clonar dependências e modelos necessários:
 ```bash
 cd ~/catkin_ws/src/
 git clone https://github.com/aws-robotics/aws-robomaker-small-house-world
